@@ -13,14 +13,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(Torch_DIR
     /home/ierturk/Work/Tools/pyENVs/pytorch-py37/lib/python3.7/site-packages/torch/share/cmake/Torch)
 
-
-# Libraries
+# Required Libraries
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Torch REQUIRED)
 
 #Sources
 aux_source_directory(./Source/Src DIR_SRC)
 set(RSRC ./Resource/qml.qrc)
+include_directories(
+    ./Source/Inc
+    )
 
 add_executable(${PROJECT_NAME} ${DIR_SRC} ${RSRC})
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)

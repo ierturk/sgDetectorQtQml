@@ -1,11 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-void testTorch();
+// void testTorch();
 
 int main(int argc, char *argv[])
 {
-    testTorch();
+    // testTorch();
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);

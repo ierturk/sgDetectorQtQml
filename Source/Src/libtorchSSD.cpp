@@ -3,6 +3,8 @@
 #include <iostream>
 #include <memory>
 
+#include <QueueFPS.h>
+
 using namespace std::chrono;
 
 
