@@ -30,9 +30,9 @@ QVideoFrame SGDetFilterRunnable::run(
 
     static qint64 lastDraw = 0;
 
-    if (QDateTime::currentDateTime().currentMSecsSinceEpoch() < lastDraw + 3000) {
+    if (QDateTime::currentDateTime().currentMSecsSinceEpoch() < lastDraw + 500) {
     }
-    else if (QDateTime::currentDateTime().currentMSecsSinceEpoch() < lastDraw + 6000) {
+    else if (QDateTime::currentDateTime().currentMSecsSinceEpoch() < lastDraw + 1000) {
         return *input;
     } else {
         lastDraw = QDateTime::currentDateTime().currentMSecsSinceEpoch();
@@ -63,27 +63,36 @@ QVideoFrame SGDetFilterRunnable::run(
 }
 
 QImage SGDetFilterRunnable::QVideoFrameToQImage(QVideoFrame* input) {
-    switch (input->handleType())
-    {
-    case QAbstractVideoBuffer::NoHandle:
-        return QVideoFrameToQImage_using_Qt_internals(input);
 
-    case QAbstractVideoBuffer::GLTextureHandle:
-        return QVideoFrameToQImage_using_GLTextureHandle(input);
+    switch (input->handleType()) {
+        case QAbstractVideoBuffer::NoHandle:
+            return QVideoFrameToQImage_using_Qt_internals(input);
 
-    case QAbstractVideoBuffer::XvShmImageHandle:
-    case QAbstractVideoBuffer::CoreImageHandle:
-    case QAbstractVideoBuffer::QPixmapHandle:
-    case QAbstractVideoBuffer::EGLImageHandle:
-    case QAbstractVideoBuffer::UserHandle:
-        break;
+        case QAbstractVideoBuffer::GLTextureHandle:
+            return QVideoFrameToQImage_using_GLTextureHandle(input);
+
+        case QAbstractVideoBuffer::XvShmImageHandle:
+        case QAbstractVideoBuffer::CoreImageHandle:
+        case QAbstractVideoBuffer::QPixmapHandle:
+        case QAbstractVideoBuffer::EGLImageHandle:
+        case QAbstractVideoBuffer::UserHandle:
+            break;
     }
 
     return QImage();
 }
 
 QImage SGDetFilterRunnable::QVideoFrameToQImage_using_Qt_internals(QVideoFrame* input) {
-    return qt_imageFromVideoFrame(*input);
+
+    QImage temp = qt_imageFromVideoFrame(*input);
+    temp = temp.convertToFormat(QImage::Format_RGB444);
+    QImage image_scaled = temp.scaled(
+                320, 320,
+                Qt::AspectRatioMode::IgnoreAspectRatio,
+                Qt::FastTransformation);
+
+    return image_scaled;
+    // return qt_imageFromVideoFrame(*input);
 }
 
 QImage SGDetFilterRunnable::QVideoFrameToQImage_using_GLTextureHandle(QVideoFrame* input)

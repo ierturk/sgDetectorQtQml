@@ -32,7 +32,6 @@ Window {
 
     SGDetFilter {
         id: videoFilter
-
         orientation: videoOutput.orientation
     }
 }

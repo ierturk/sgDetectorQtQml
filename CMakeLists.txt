@@ -25,10 +25,12 @@ set(SRC
     ./Source/Src/main.cpp
     ./Source/Src/SGDetFilter.cpp
     ./Source/Src/SGDetFilterRunnable.cpp
+    ./Source/Src/SSDNet.cpp
     )
 set(INC
     ./Source/Inc/SGDetFilter.h
     ./Source/Inc/SGDetFilterRunnable.h
+    ./Source/Inc/SSDNet.h
     )
 set(RSRC ./Resource/qml.qrc)
 
