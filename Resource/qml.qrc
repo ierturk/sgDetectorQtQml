@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file alias="main.qml">AppMain/main.qml</file>
-        <file alias="ContentVideo.qml">AppMain/ContentVideo.qml</file>
     </qresource>
 </RCC>

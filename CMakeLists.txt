@@ -14,20 +14,30 @@ set(Torch_DIR
     /home/ierturk/Work/Tools/pyENVs/pytorch-py37/lib/python3.7/site-packages/torch/share/cmake/Torch)
 
 # Required Libraries
-find_package(Qt5 COMPONENTS Core Quick REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick Multimedia REQUIRED)
 find_package(Torch REQUIRED)
 
-#Sources
-aux_source_directory(./Source/Src DIR_SRC)
-set(RSRC ./Resource/qml.qrc)
-include_directories(
-    ./Source/Inc
-    )
+# Sources
+# aux_source_directory(./Source/Src DIR_SRC)
+# aux_source_directory(./Source/Src DIR_INC)
 
-add_executable(${PROJECT_NAME} ${DIR_SRC} ${RSRC})
+set(SRC
+    ./Source/Src/main.cpp
+    ./Source/Src/SGDetFilter.cpp
+    ./Source/Src/SGDetFilterRunnable.cpp
+    )
+set(INC
+    ./Source/Inc/SGDetFilter.h
+    ./Source/Inc/SGDetFilterRunnable.h
+    )
+set(RSRC ./Resource/qml.qrc)
+
+include_directories(./Source/Inc)
+
+add_executable(${PROJECT_NAME} ${SRC} ${INC} ${RSRC})
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE Qt5::Core Qt5::Quick
+    PRIVATE Qt5::Core Qt5::Quick Qt5::Multimedia
     ${TORCH_LIBRARIES}
     )

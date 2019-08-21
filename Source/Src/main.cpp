@@ -1,16 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-// void testTorch();
+#include "SGDetFilter.h"
 
 int main(int argc, char *argv[])
 {
-    // testTorch();
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    qmlRegisterType<SGDetFilter>("SGDetFilterLib", 1, 0, "SGDetFilter");
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
