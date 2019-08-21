@@ -5,15 +5,13 @@
 #ifndef SG_DETECTOR_SSDNET_H
 #define SG_DETECTOR_SSDNET_H
 
-
 #include <torch/torch.h>
 #include <torch/script.h>
 #include <QVideoFrame>
 
 class SSDNet {
-
 public:
-    SSDNet();
+    SSDNet(const char* model_path);
     ~SSDNet();
 
     void init(const char* model_path);

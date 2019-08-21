@@ -4,8 +4,10 @@
 
 #include "SSDNet.h"
 
-SSDNet::SSDNet()= default;
-SSDNet::~SSDNet()= default;
+SSDNet::SSDNet(const char* model_path){
+    init(model_path);
+};
+SSDNet::~SSDNet(){};
 
 void SSDNet::init(const char* model_path) {
     module = torch::jit::load(model_path);
@@ -14,11 +16,13 @@ void SSDNet::init(const char* model_path) {
 
 void SSDNet::setInput(QImage& image) {
 
-    QImage image_scaled = image.scaled(
+    QImage image_scaled = image
+            .scaled(
                 320, 320,
-                Qt::AspectRatioMode::IgnoreAspectRatio);
+                Qt::AspectRatioMode::IgnoreAspectRatio)
+            .convertToFormat(QImage::Format_RGB888);
 
-    auto in = torch::from_blob(image.data_ptr(), {1,3, 320, 320});
+    torch::Tensor in = torch::from_blob(image.data_ptr(), {1,3, 320, 320});
     input.emplace_back(in);
 }
 

@@ -1,6 +1,5 @@
 #include "SGDetFilterRunnable.h"
 
-
 #include <QDebug>
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
@@ -47,13 +46,11 @@ QVideoFrame SGDetFilterRunnable::run(
 #endif
 
     QImage image = QVideoFrameToQImage(input);
-    if (image.isNull())
-    {
+    if (image.isNull()) {
         return *input;
     }
 
-    if (image.format() != QImage::Format_ARGB32)
-    {
+    if (image.format() != QImage::Format_ARGB32) {
         image = image.convertToFormat(QImage::Format_ARGB32);
     }
 
@@ -83,16 +80,19 @@ QImage SGDetFilterRunnable::QVideoFrameToQImage(QVideoFrame* input) {
 }
 
 QImage SGDetFilterRunnable::QVideoFrameToQImage_using_Qt_internals(QVideoFrame* input) {
-
+/*
     QImage temp = qt_imageFromVideoFrame(*input);
-    temp = temp.convertToFormat(QImage::Format_RGB444);
+    temp = temp.convertToFormat(QImage::Format_RGB888);
     QImage image_scaled = temp.scaled(
                 320, 320,
                 Qt::AspectRatioMode::IgnoreAspectRatio,
                 Qt::FastTransformation);
 
-    return image_scaled;
-    // return qt_imageFromVideoFrame(*input);
+    // torch::Tensor x = torch::from_blob(image_scaled.data_ptr(), {1, 3, 320, 320}).set_requires_grad(false);
+    // return image_scaled;
+*/
+
+    return qt_imageFromVideoFrame(*input);
 }
 
 QImage SGDetFilterRunnable::QVideoFrameToQImage_using_GLTextureHandle(QVideoFrame* input)

@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# LİbTorch
+# LibTorch
 set(Torch_DIR
     /home/ierturk/Work/Tools/pyENVs/pytorch-py37/lib/python3.7/site-packages/torch/share/cmake/Torch)
 
