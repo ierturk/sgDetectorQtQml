@@ -11,23 +11,27 @@ Window {
     title: qsTr("My Video Filter")
 
     MediaPlayer {
-        id: mediaplayer
+        id: video
         source: "file:///home/ierturk/Work/REPOs/ssd/yoloData/VID_20190627_191450.mp4"
-        autoPlay: true
     }
 
     VideoOutput {
         id: videoOutput
         anchors.fill: parent
         autoOrientation: true
-        source: mediaplayer
+        source: video
         filters: [ videoFilter ]
+
+        focus: true
+        Keys.onSpacePressed: video.playbackState == MediaPlayer.PlayingState ? video.pause() : video.play()
+        Keys.onLeftPressed: video.seek(video.position - 5000)
+        Keys.onRightPressed: video.seek(video.position + 5000)
     }
 
     MouseArea {
         id: playArea
         anchors.fill: parent
-        onPressed: mediaplayer.play();
+        onPressed: video.play();
     }
 
     SGDetFilter {
