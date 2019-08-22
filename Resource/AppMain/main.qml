@@ -8,7 +8,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("My Video Filter")
+    title: qsTr("sgDetector")
 
     MediaPlayer {
         id: video

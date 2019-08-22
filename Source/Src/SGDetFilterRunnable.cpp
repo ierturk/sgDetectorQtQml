@@ -6,6 +6,7 @@
 #include <QOpenGLFunctions>
 #include <QQmlContext>
 #include <QDateTime>
+#include <QtGui/QPainter>
 #include "SGDetFilter.h"
 
 
@@ -34,6 +35,7 @@ QVideoFrame SGDetFilterRunnable::run(
         return *input;
     }
 
+    /*
     static qint64 lastDraw = 0;
 
     if (QDateTime::currentDateTime().currentMSecsSinceEpoch() < lastDraw + 500) {
@@ -43,6 +45,7 @@ QVideoFrame SGDetFilterRunnable::run(
     } else {
         lastDraw = QDateTime::currentDateTime().currentMSecsSinceEpoch();
     }
+     */
 
     m_Orientation = m_Filter ? m_Filter->property("orientation").toInt() : 0;
 
@@ -57,13 +60,27 @@ QVideoFrame SGDetFilterRunnable::run(
         return *input;
     }
 
+    auto start = std::chrono::high_resolution_clock::now();
+
     ssdNet->setInput(image);
     ssdNet->forward();
+    ssdNet->postProcess();
     image = ssdNet->getOut();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "frame rate : " << 1000.0f / duration.count() << " fps" << '\n';
+
+
 
     if (image.format() != QImage::Format_ARGB32) {
         image = image.convertToFormat(QImage::Format_ARGB32);
     }
+
+    // QPainter qPainter(&image);
+    // QFontInfo font = qPainter.fontInfo();
+    // qPainter.setFont(QFont(font.family(), 64));
+    // qPainter.drawText(200,200,"sgDetector");
 
     // drawRedGreenPixels(image);
 

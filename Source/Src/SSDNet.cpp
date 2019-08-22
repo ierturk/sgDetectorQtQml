@@ -73,7 +73,7 @@ void SSDNet::forward() {
 
     output = module.forward(input);
     input.clear();
-    postProcess();
+    // postProcess();
 }
 
 QImage SSDNet::getOut() {
@@ -82,7 +82,8 @@ QImage SSDNet::getOut() {
             frame.cols,
             frame.rows,
             frame.step,
-            QImage::Format_ARGB32).copy();
+            QImage::Format_ARGB32
+            ).copy();
 }
 
 void SSDNet::postProcess() {
