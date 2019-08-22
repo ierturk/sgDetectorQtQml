@@ -69,7 +69,7 @@ QVideoFrame SGDetFilterRunnable::run(
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    std::cout << "frame rate : " << 1000.0f / duration.count() << " fps" << '\n';
+    // std::cout << "frame rate : " << 1000.0f / duration.count() << " fps" << '\n';
 
 
 
