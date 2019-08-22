@@ -1,3 +1,4 @@
+#include "SSDNet.h"
 #include "SGDetFilterRunnable.h"
 
 #include <QDebug>
@@ -7,12 +8,18 @@
 #include <QDateTime>
 #include "SGDetFilter.h"
 
+
 QImage qt_imageFromVideoFrame(const QVideoFrame& f);
 
 SGDetFilterRunnable::SGDetFilterRunnable(SGDetFilter* parent) :
     m_Filter(parent),
     m_Orientation(0),
     m_Flip(0) {
+
+    ssdNet = new SSDNet();
+    ssdNet->init(
+                "/home/ierturk/Work/REPOs/ssd/ssdIE/outputs/mobilenet_v2_ssd320_clk_trainval2019/jit_model_040000.pt"
+                );
 }
 
 QVideoFrame SGDetFilterRunnable::run(
@@ -50,11 +57,15 @@ QVideoFrame SGDetFilterRunnable::run(
         return *input;
     }
 
+    ssdNet->setInput(image);
+    ssdNet->forward();
+    image = ssdNet->getOut();
+
     if (image.format() != QImage::Format_ARGB32) {
         image = image.convertToFormat(QImage::Format_ARGB32);
     }
 
-    drawRedGreenPixels(image);
+    // drawRedGreenPixels(image);
 
     return QVideoFrame(image);
 }
@@ -80,18 +91,6 @@ QImage SGDetFilterRunnable::QVideoFrameToQImage(QVideoFrame* input) {
 }
 
 QImage SGDetFilterRunnable::QVideoFrameToQImage_using_Qt_internals(QVideoFrame* input) {
-/*
-    QImage temp = qt_imageFromVideoFrame(*input);
-    temp = temp.convertToFormat(QImage::Format_RGB888);
-    QImage image_scaled = temp.scaled(
-                320, 320,
-                Qt::AspectRatioMode::IgnoreAspectRatio,
-                Qt::FastTransformation);
-
-    // torch::Tensor x = torch::from_blob(image_scaled.data_ptr(), {1, 3, 320, 320}).set_requires_grad(false);
-    // return image_scaled;
-*/
-
     return qt_imageFromVideoFrame(*input);
 }
 

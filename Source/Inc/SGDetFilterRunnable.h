@@ -5,7 +5,7 @@
 #include <QVideoFilterRunnable>
 
 class SGDetFilter;
-
+class SSDNet;
 class SGDetFilterRunnable : public QVideoFilterRunnable {
 public:
     SGDetFilterRunnable(SGDetFilter* parent = nullptr);
@@ -21,6 +21,7 @@ protected:
     SGDetFilter* m_Filter;
     int m_Orientation;
     int m_Flip;
+    SSDNet* ssdNet;
 };
 
 #endif // SGDETFILTERRUNNABLE_H

@@ -16,10 +16,12 @@ set(Torch_DIR
 # Required Libraries
 find_package(Qt5 COMPONENTS Core Quick Multimedia REQUIRED)
 find_package(Torch REQUIRED)
+find_package(OpenCV REQUIRED)
 
 # Sources
 # aux_source_directory(./Source/Src DIR_SRC)
 # aux_source_directory(./Source/Src DIR_INC)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(SRC
     ./Source/Src/main.cpp
@@ -42,4 +44,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONF
 target_link_libraries(${PROJECT_NAME}
     PRIVATE Qt5::Core Qt5::Quick Qt5::Multimedia
     ${TORCH_LIBRARIES}
+    ${OpenCV_LIBS}
     )
+
+set_property(TARGET sgDetector PROPERTY CXX_STANDARD 11)
