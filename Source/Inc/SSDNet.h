@@ -20,9 +20,11 @@ public:
     void forward();
     void postProcess();
     QImage getOut();
+    bool isInitialized();
 
 
 private:
+    bool initialized = false;
     unsigned int input_width = 320;
     unsigned int input_height = 320;
     float confThreshold = 0.5f;

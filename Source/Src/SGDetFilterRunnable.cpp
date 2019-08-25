@@ -56,7 +56,7 @@ QVideoFrame SGDetFilterRunnable::run(
 #endif
 
     QImage image = QVideoFrameToQImage(input);
-    if (image.isNull()) {
+    if (ssdNet->isInitialized() && image.isNull()) {
         return *input;
     }
 

@@ -13,6 +13,9 @@ SSDNet::SSDNet()= default;;
 SSDNet::~SSDNet()= default;;
 
 void SSDNet::init(const char* model_path) {
+
+    initialized = false;
+
     module = torch::jit::load(model_path);
     module.eval();
 
@@ -33,6 +36,12 @@ void SSDNet::init(const char* model_path) {
         classes.emplace_back(val.toObject().value("name").toString().toUtf8().constData());
     }
 
+    initialized = true;
+
+}
+
+bool SSDNet::isInitialized() {
+    return initialized;
 }
 
 void SSDNet::setInput(QImage& image) {
