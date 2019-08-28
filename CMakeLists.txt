@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # LibTorch
 set(Torch_DIR
-    /home/ierturk/Work/Tools/pyENVs/pytorch-py37/lib/python3.7/site-packages/torch/share/cmake/Torch)
+    /home/ierturk/Work/Tools/Libs/libtorch/share/cmake/Torch)
 
 # Required Libraries
 find_package(Qt5 COMPONENTS Core Quick Multimedia REQUIRED)

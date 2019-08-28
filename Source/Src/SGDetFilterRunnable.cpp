@@ -62,10 +62,14 @@ QVideoFrame SGDetFilterRunnable::run(
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    ssdNet->setInput(image);
-    ssdNet->forward();
-    ssdNet->postProcess();
-    image = ssdNet->getOut();
+    try {
+        ssdNet->setInput(image);
+        ssdNet->forward();
+        ssdNet->postProcess();
+        image = ssdNet->getOut();
+    } catch (...) {
+        std::cout << "An exception was caught!" << '\n';
+    }
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
