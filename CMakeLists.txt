@@ -18,7 +18,7 @@ find_package(Qt5 COMPONENTS Core Quick Multimedia REQUIRED)
 find_package(Torch REQUIRED)
 find_package(OpenCV REQUIRED)
 
-find_package(Qt5GStreamer REQUIRED)
+# find_package(Qt5GStreamer REQUIRED)
 
 # Sources
 # aux_source_directory(./Source/Src DIR_SRC)
@@ -26,11 +26,13 @@ find_package(Qt5GStreamer REQUIRED)
 
 include_directories(
     ${OpenCV_INCLUDE_DIRS}
-    ${QTGSTREAMER_INCLUDES}
+    # ${QTGSTREAMER_INCLUDES}
     )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${QTGSTREAMER_FLAGS}")
-add_definitions(${QTGSTREAMER_DEFINITIONS})
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${QTGSTREAMER_FLAGS}")
+# add_definitions(${QTGSTREAMER_DEFINITIONS})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 set(SRC
     ./Source/Src/main.cpp
@@ -52,7 +54,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONF
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE Qt5::Core Qt5::Quick Qt5::Multimedia
-    ${QTGSTREAMER_QUICK_LIBRARIES}
+    # ${QTGSTREAMER_QUICK_LIBRARIES}
     ${TORCH_LIBRARIES}
     ${OpenCV_LIBS}
     )
