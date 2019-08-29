@@ -57,4 +57,4 @@ target_link_libraries(${PROJECT_NAME}
     ${OpenCV_LIBS}
     )
 
-# set_property(TARGET sgDetector PROPERTY CXX_STANDARD 11)
+set_property(TARGET sgDetector PROPERTY CXX_STANDARD 11)
