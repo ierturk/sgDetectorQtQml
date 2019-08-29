@@ -32,8 +32,10 @@ void SSDNet::init(const char* model_path) {
 
     QJsonObject rootObj = doc.object();
     QJsonArray ptsArray = rootObj.value("categories").toArray();
-    foreach(const QJsonValue & val, ptsArray) {
-        classes.emplace_back(val.toObject().value("name").toString().toUtf8().constData());
+    auto x = ptsArray.size();
+
+    for(auto && i : ptsArray) {
+        classes.emplace_back(i.toObject().value("name").toString().toUtf8().constData());
     }
 
     initialized = true;
