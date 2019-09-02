@@ -60,7 +60,7 @@ QVideoFrame SGDetFilterRunnable::run(
         return *input;
     }
 
-    auto start = std::chrono::high_resolution_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
 
     try {
         ssdNet->setInput(image);
@@ -71,8 +71,8 @@ QVideoFrame SGDetFilterRunnable::run(
         std::cout << "An exception was caught!" << '\n';
     }
 
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    // auto end = std::chrono::high_resolution_clock::now();
+    // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     // std::cout << "frame rate : " << 1000.0f / duration.count() << " fps" << '\n';
 
 

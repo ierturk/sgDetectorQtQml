@@ -8,8 +8,8 @@ import SGDetFilterLib 1.0
 Window {
     id: mainWindow
     visible: true
-    width: 1280
-    height: 960
+    width: 1080
+    height: 360
     title: qsTr("sgDetector")
 
     SGDetFilter {
@@ -21,13 +21,20 @@ Window {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
+        columnSpacing: 10
+        rowSpacing: 10
+        rows: 1
+        columns: 2
 
         Rectangle {
-            Layout.maximumWidth: 400
-            Layout.preferredWidth: 400
-            Layout.preferredHeight: 400
+            id: rectangle1
+            Layout.maximumWidth: 640
+            Layout.preferredWidth: 640
+            Layout.preferredHeight: 360
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             color: "red"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
             MediaPlayer {
                 id: video_cam00
@@ -52,11 +59,14 @@ Window {
         }
 
         Rectangle {
-            Layout.maximumWidth: 400
-            Layout.preferredWidth: 400
-            Layout.preferredHeight: 400
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            id: rectangle
+            Layout.maximumWidth: 640
+            Layout.preferredWidth: 640
+            Layout.preferredHeight: 360
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             color: "blue"
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
             MediaPlayer {
                 id: video_cam01
