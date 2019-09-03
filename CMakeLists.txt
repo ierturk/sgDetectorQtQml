@@ -54,7 +54,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONF
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE Qt5::Core Qt5::Quick Qt5::Multimedia
-    # ${QTGSTREAMER_QUICK_LIBRARIES}
     ${TORCH_LIBRARIES}
     ${OpenCV_LIBS}
     )

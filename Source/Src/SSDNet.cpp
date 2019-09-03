@@ -8,6 +8,7 @@
 #include <QtCore/QJsonParseError>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QDebug>
 
 SSDNet::SSDNet()= default;;
 SSDNet::~SSDNet()= default;;
@@ -27,7 +28,8 @@ void SSDNet::init(const char* model_path) {
     QJsonParseError errorPtr{};
     QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
     if (doc.isNull()) {
-        // qDebug() << "Parse failed";
+        qDebug() << "Parse failed";
+
     }
 
     QJsonObject rootObj = doc.object();
@@ -136,6 +138,7 @@ void SSDNet::postProcess() {
         cv::Rect box = boxes[idx];
         drawPred(classIds[idx], confidences[idx], box.x, box.y,
                  box.x + box.width, box.y + box.height);
+
     }
 }
 
@@ -155,5 +158,9 @@ void SSDNet::drawPred(int classId, float conf, int left, int top, int right, int
         rectangle(frame, cv::Point(left, top - labelSize.height),
                   cv::Point(left + labelSize.width, top + baseLine), cv::Scalar::all(255), cv::FILLED);
         putText(frame, label, cv::Point(left, top), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar());
+
+    qDebug() << "Class ID / Confidence -> " << label.c_str()  << " - "
+             << "Box x0, y0 ->  " << left << ", " << top << " - "
+             << "Box x1, y1 ->  " << right << ", " << bottom;
 }
 
