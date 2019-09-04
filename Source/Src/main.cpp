@@ -2,25 +2,25 @@
 #include <QQmlApplicationEngine>
 #include <QDebug>
 
-// #include <QLoggingCategory>
-// #include <QQmlDebuggingEnabler>
+#include <QLoggingCategory>
+#include <QQmlDebuggingEnabler>
 
-// #include <QMediaPlayer>
-// #include <QMediaRecorder>
-// #include <QQmlContext>
+#include <QMediaPlayer>
+#include <QMediaRecorder>
+#include <QQmlContext>
 
 #include "SGDetFilter.h"
 
 
 int main(int argc, char *argv[])
 {
-    /*
+
     QQmlDebuggingEnabler enabler;
     QLoggingCategory::setFilterRules(
                 "*.debug=true\n"
                 "qt.*.debug=false"
                 );
-    */
+
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
@@ -33,8 +33,10 @@ int main(int argc, char *argv[])
         return -1;
 /*
     QObject *item = dynamic_cast<QObject *>(engine.rootObjects().at(0));
-    QObject *m_player = item->findChild<QObject*>("video_cam00");
+    QObject *m_player = item->findChild<QObject *>("video_cam00");
     QMediaPlayer *player = qvariant_cast<QMediaPlayer *>(m_player->property("mediaObject"));
+    // player->play();
+
     QMediaRecorder *recorder = new QMediaRecorder(player);
     QVideoEncoderSettings settings = recorder->videoSettings();
     settings.setResolution(640,480);
@@ -47,7 +49,10 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("myRecorder", recorder);
     recorder->record();
 
-    qDebug() << m_player->property("source");
+    qDebug() << "Output location : " << recorder->property("outputLocation");
+    qDebug() << "Cam0 URL : " << m_player->property("source");
+
+    // delete item;
 */
     return app.exec();
 }

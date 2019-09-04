@@ -21,6 +21,8 @@ public:
     void postProcess();
     QImage getOut();
     bool isInitialized();
+    bool isInProgress();
+    void setInProgress(bool status);
 
 
 private:
@@ -33,6 +35,8 @@ private:
     cv::Mat frame;
     std::vector<torch::jit::IValue> input;
     c10::IValue output;
+
+    bool inProgress = false;
 
     std::vector<std::string> classes;
 

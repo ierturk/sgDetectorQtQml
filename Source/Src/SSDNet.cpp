@@ -48,6 +48,14 @@ bool SSDNet::isInitialized() {
     return initialized;
 }
 
+bool SSDNet::isInProgress() {
+    return this->inProgress;
+}
+
+void SSDNet::setInProgress(bool status) {
+    this->inProgress = status;
+}
+
 void SSDNet::setInput(QImage& image) {
     cv::Mat cv_blob;
     torch::Tensor torch_blob;
