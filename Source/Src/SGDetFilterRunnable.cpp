@@ -29,7 +29,7 @@ QVideoFrame SGDetFilterRunnable::run(
         RunFlags flags) {
     Q_UNUSED(flags)
 
-    if (!input->isValid() || ssdNet->isInProgress())
+    if (!input->isValid())
     {
         qWarning("Invalid input format");
         return *input;
@@ -56,19 +56,19 @@ QVideoFrame SGDetFilterRunnable::run(
 #endif
 
     QImage image = QVideoFrameToQImage(input);
-    if (ssdNet->isInitialized() && image.isNull()) {
+    if (image.isNull()) {
         return *input;
     }
 
     // auto start = std::chrono::high_resolution_clock::now();
 
     try {
-        ssdNet->setInProgress(true);
+        // ssdNet->setInProgress(true);
         ssdNet->setInput(image);
         ssdNet->forward();
         ssdNet->postProcess();
         image = ssdNet->getOut();
-        ssdNet->setInProgress(false);
+        // ssdNet->setInProgress(false);
     } catch (...) {
         std::cout << "An exception was caught!" << '\n';
     }

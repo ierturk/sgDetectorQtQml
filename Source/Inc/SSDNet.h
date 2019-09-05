@@ -20,13 +20,14 @@ public:
     void forward();
     void postProcess();
     QImage getOut();
-    bool isInitialized();
-    bool isInProgress();
-    void setInProgress(bool status);
+    // bool isInitialized();
+    // bool isInProgress();
+    // void setInProgress(bool status);
 
 
 private:
-    bool initialized = false;
+    // bool initialized = false;
+    // bool inProgress = false;
     unsigned int input_width = 320;
     unsigned int input_height = 320;
     float confThreshold = 0.5f;
@@ -35,8 +36,6 @@ private:
     cv::Mat frame;
     std::vector<torch::jit::IValue> input;
     c10::IValue output;
-
-    bool inProgress = false;
 
     std::vector<std::string> classes;
 
