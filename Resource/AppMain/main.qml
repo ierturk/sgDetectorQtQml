@@ -1,4 +1,4 @@
-import QtQuick 2.12
+﻿import QtQuick 2.12
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.12
 import QtMultimedia 5.9
@@ -20,7 +20,8 @@ Window {
         // source: "file:///home/ierturk/Work/REPOs/ssd/yoloData/VID_20190627_191450.mp4"
         // source: "gst-pipeline: uridecodebin uri=rtsp://admin:rdNN2018@192.168.1.64:554/ch01.264?dev=1 ! autovideosink sync=false"
         // source: "gst-pipeline: rtspsrc location=rtsp://admin:rdNN2018@192.168.1.64:554/ch01.264?dev=1 ! rtph264depay ! tee name=t t. ! queue ! h264parse ! matroskamux ! filesink location=/home/ierturk/cam_00.mp4 t. ! queue ! decodebin ! autovideosink sync=false"
-        source: "gst-pipeline: filesrc location=/home/ierturk/Work/REPOs/data/20190904_left.mp4 ! decodebin ! videoflip method=clockwise ! autovideosink"
+        // source: "gst-pipeline: filesrc location=/home/ierturk/Work/REPOs/data/20190904_left.mp4 ! decodebin ! videoflip method=clockwise ! autovideosink"
+        source: "gst-pipeline: rtspsrc location=rtsp://192.168.1.21:8554/ latency=0 drop-on-latency=true ! rtph264depay ! decodebin ! videoflip method=clockwise ! autovideosink"
     }
 
     MediaPlayer {
